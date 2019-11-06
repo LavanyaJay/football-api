@@ -9,8 +9,10 @@ const jsonParser = bodyParser.json();
 app.use(jsonParser);
 
 const teamRouter = require("./team/router");
+const playerRouter = require("./player/router");
 
 app.use(teamRouter);
+app.use(playerRouter);
 
 app.listen(process.env.PORT || port, () =>
 	console.log("Listening on port:" + port)
