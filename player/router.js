@@ -29,11 +29,11 @@ router.get("/player/:id", (req, res, next) => {
 		.catch(next);
 });
 
-app.put("/player/:id", (req, res, next) => {
+router.put("/player/:id", (req, res, next) => {
 	Player.findByPk(req.params.id)
 		.then(player => {
 			if (player) {
-				player.update({ no: req.body.no }).then(player => {
+				player.update({ number: parseInt(req.body.number) }).then(player => {
 					res.json(player);
 				});
 			}
