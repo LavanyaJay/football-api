@@ -29,4 +29,16 @@ router.get("/player/:id", (req, res, next) => {
 		.catch(next);
 });
 
+app.put("/player/:id", (req, res, next) => {
+	Player.findByPk(req.params.id)
+		.then(player => {
+			if (player) {
+				player.update({ no: req.body.no }).then(player => {
+					res.json(player);
+				});
+			}
+		})
+		.catch(next);
+});
+
 module.exports = router;
