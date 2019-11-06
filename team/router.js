@@ -11,4 +11,10 @@ router.get("/team", (request, response, next) => {
 		.catch(next);
 });
 
+router.post("/team", (request, response, next) => {
+	Team.create({ name: request.body.name })
+		.then(team => response.json(team))
+		.catch(err => next(err));
+});
+
 module.exports = router;
