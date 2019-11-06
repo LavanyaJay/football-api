@@ -19,7 +19,7 @@ router.post("/player", (request, response, next) => {
 
 router.get("/player/:id", (req, res, next) => {
 	Player.findByPk(req.params.id)
-		.then(team => {
+		.then(player => {
 			if (player) {
 				res.json(player);
 			} else {
