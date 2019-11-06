@@ -1,5 +1,6 @@
 const { Router } = require("express");
 const Player = require("./model");
+const Team = require("../team/model");
 
 const router = new Router();
 
@@ -12,13 +13,17 @@ router.get("/player", (request, response, next) => {
 });
 
 router.post("/player", (request, response, next) => {
-	Player.create({ name: request.body.name })
+	Player.create({
+		name: request.body.name,
+		no: parseInt(request.body.no),
+		teamId: parseInt(request.body.teamId)
+	})
 		.then(player => response.json(player))
 		.catch(err => next(err));
 });
 
 router.get("/player/:id", (req, res, next) => {
-	Player.findByPk(req.params.id)
+	Player.findByPk(req.params.id, { include: [Team] })
 		.then(player => {
 			if (player) {
 				res.json(player);
@@ -33,7 +38,7 @@ router.put("/player/:id", (req, res, next) => {
 	Player.findByPk(req.params.id)
 		.then(player => {
 			if (player) {
-				player.update({ number: parseInt(req.body.number) }).then(player => {
+				player.update({ no: parseInt(req.body.no) }).then(player => {
 					res.json(player);
 				});
 			}
