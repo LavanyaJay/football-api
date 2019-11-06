@@ -34,6 +34,22 @@ router.get("/player/:id", (req, res, next) => {
 		.catch(next);
 });
 
+router.get("/team/:teamId/player", (req, res, next) => {
+	Player.findAll({
+		where: {
+			teamId: parseInt(req.params.teamId)
+		}
+	})
+		.then(player => {
+			if (player) {
+				res.json(player);
+			} else {
+				res.status(404).send(404);
+			}
+		})
+		.catch(next);
+});
+
 router.put("/player/:id", (req, res, next) => {
 	Player.findByPk(req.params.id)
 		.then(player => {
